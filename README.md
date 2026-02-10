@@ -1,4 +1,5 @@
-# 🛡️ SecureE2E 
+# 🛡️ SecureE2E | [فارسی](https://github.com/NIKJOO/11780/blob/main/README_fa.md).
+
 
 > [!NOTE] 
 > **This project is dedicated to all those who lost their lives during the Iranian National Revolution; those whose names we will remember forever, those whose names will never be spoken, and especially the Unknown Martyr No. 11780**.
