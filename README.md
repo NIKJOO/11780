@@ -66,7 +66,7 @@ Prerequisites
 </pre>
 #
 # 🚀 Usage
- Download Video : ([Link](https://github.com/user-attachments/assets/e6c4155e-8701-4228-87a4-0c989255ba3f)).
+ Download Video ( can't preview on web ) : ([Link](https://github.com/user-attachments/assets/e6c4155e-8701-4228-87a4-0c989255ba3f)).
 
 
 
