@@ -47,7 +47,7 @@ SecureE2E یک برنامه چت کلاینت-سرور است که در آن س�
 
 1. کلون کردن مخزن
 <pre>    git clone https://github.com/yourusername/SecureE2E-Go.git
-cd SecureE2E-Go </pre>
+    cd SecureE2E-Go </pre>
 2. نصب وابستگی‌ها
 <pre>
     go get golang.org/x/crypto/curve25519
