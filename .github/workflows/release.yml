@@ -1,21 +1,48 @@
-name: Go Cross-Platform Release
+name: Build & Release SecureE2E
 
 on:
   push:
+    branches: ["main"]
     tags:
       - "v*"
 
 jobs:
-  build:
+  test-and-build:
+    name: Test & Build (CI)
     runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
 
+    - name: Setup Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: "1.21"
+
+    - name: Build for current OS
+      run: |
+        go mod tidy
+        go build -o bin/server server.go
+        go build -o bin/client client.go
+
+    - name: Upload CI Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ci-build
+        path: bin/
+
+  release:
+    name: Cross-Platform Build & GitHub Release
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
         os: [linux, windows, darwin]
         arch: [amd64]
 
     steps:
-    - name: Checkout source
+    - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Setup Go
@@ -28,24 +55,16 @@ jobs:
         mkdir -p dist
         export GOOS=${{ matrix.os }}
         export GOARCH=${{ matrix.arch }}
+        if [ "$GOOS" == "windows" ]; then EXT=".exe"; else EXT=""; fi
+        go build -ldflags="-s -w" -o dist/server-${GOOS}-${GOARCH}${EXT} server.go
+        go build -ldflags="-s -w" -o dist/client-${GOOS}-${GOARCH}${EXT} client.go
 
-        if [ "$GOOS" = "windows" ]; then
-          EXT=".exe"
-        else
-          EXT=""
-        fi
-
-        go build -o dist/server-${GOOS}-${GOARCH}${EXT} server.go
-        go build -o dist/client-${GOOS}-${GOARCH}${EXT} client.go
-
-    - name: Archive binaries
+    - name: Archive builds
       run: |
         cd dist
-        for f in *; do
-          zip "$f.zip" "$f"
-        done
+        for file in *; do zip "$file.zip" "$file"; done
 
-    - name: Upload Release Assets
+    - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
         files: dist/*.zip
