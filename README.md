@@ -1,4 +1,4 @@
-# 🛡️ SecureE2E | [فارسی](https://github.com/NIKJOO/11780/blob/main/README_fa.md).
+# 🛡️ SecureE2E | [فارسی](https://github.com/NIKJOO/11780/blob/main/README_fa.md)
 
 
 > [!NOTE] 
@@ -47,7 +47,8 @@ Prerequisites
   + Terminal access.
 
 1. Clone the Repository
-<pre>    git clone https://github.com/yourusername/SecureE2E-Go.gitcd SecureE2E-Go </pre>
+<pre>    git clone https://github.com/yourusername/SecureE2E-Go.git
+    cd SecureE2E-Go </pre>
 2. Install Dependencies
 <pre>
     go get golang.org/x/crypto/curve25519
